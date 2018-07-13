@@ -29,4 +29,40 @@ public class YearGlucoseTableShardingStrategy implements PreciseShardingAlgorith
         }
         throw new UnsupportedOperationException();
     }
+
+    /**
+     private static final String	YEAR_RULE_FORMAT	= "yyyy";
+
+     @Override protected <T> String praseShardingKeyTableName(T t) {
+     if(t!=null){
+     if(t instanceof QueryVO){
+     return getTableName(DateUtils.getDateTime(((QueryVO) t).getBeginTestDate()));
+     }
+     if(t instanceof SncGlucoseData){
+     return getTableName(((SncGlucoseData) t).getTestTime());
+     }
+     if(t instanceof SharpQueryVO) {
+     return logicTableName+TABLE_LINK_SYMBOL+((SharpQueryVO)t).getYear();
+     }
+     if(t instanceof SncGlucoseDataExample){
+     for(Criteria cr:((SncGlucoseDataExample) t).getOredCriteria()){
+     for(Criterion crion:cr.getCriteria()){
+     if(StringUtils.containsIgnoreCase(crion.getCondition(), shardingColumns)
+     && crion.getValue()!=null){
+     return getTableName(crion.getValue());
+     }
+     }
+     }
+     }
+     }
+     return logicTableName;
+     }
+
+
+
+     @Override protected String getTableName(Object testDate){
+     String year = DateUtils.formatDate((Date) testDate,YEAR_RULE_FORMAT);
+     return logicTableName+TABLE_LINK_SYMBOL+year;
+     }
+     */
 }
