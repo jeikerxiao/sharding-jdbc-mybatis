@@ -25,15 +25,35 @@
     <sharding:standard-strategy id="orderTableShardingStrategy" sharding-column="order_id" precise-algorithm-class="io.shardingjdbc.example.spring.namespace.mybatis.algorithm.PreciseModuloTableShardingAlgorithm"/>
     <sharding:standard-strategy id="orderItemTableShardingStrategy" sharding-column="order_id" precise-algorithm-class="io.shardingjdbc.example.spring.namespace.mybatis.algorithm.PreciseModuloTableShardingAlgorithm"/>
 
+    <sharding:standard-strategy id="glucoseTableShardingStrategy" sharding-column="test_time"
+                                precise-algorithm-class="io.shardingjdbc.example.spring.namespace.mybatis.algorithm.YearGlucoseTableShardingStrategy"/>
+    <sharding:standard-strategy id="userGlucoseTableShardingStrategy" sharding-column="user_code"
+                                precise-algorithm-class="io.shardingjdbc.example.spring.namespace.mybatis.algorithm.UserGlucoseTableShardingStrategy"/>
+    <sharding:standard-strategy id="deviceGlucoseTableShardingStrategy" sharding-column="sn"
+                                precise-algorithm-class="io.shardingjdbc.example.spring.namespace.mybatis.algorithm.DeviceGlucoseTableShardingStrategy"/>
+
+
     <!-- 分表规则 -->
     <sharding:data-source id="shardingDataSource">
         <sharding:sharding-rule data-source-names="demo_ds">
             <sharding:table-rules>
                 <sharding:table-rule logic-table="t_order" actual-data-nodes="demo_ds.t_order_${1..10}" table-strategy-ref="orderTableShardingStrategy" generate-key-column="order_id" />
                 <sharding:table-rule logic-table="t_order_item" actual-data-nodes="demo_ds.t_order_item_${1..10}" table-strategy-ref="orderItemTableShardingStrategy" generate-key-column="order_item_id" />
+
+                <sharding:table-rule logic-table="snc_glucose_data"
+                                     actual-data-nodes="demo_ds.snc_glucose_data_${2014..2020}"
+                                     table-strategy-ref="glucoseTableShardingStrategy" generate-key-column="id"/>
+                <sharding:table-rule logic-table="snc_user_glucose_data"
+                                     actual-data-nodes="demo_ds.snc_user_glucose_data_${1..10}"
+                                     table-strategy-ref="userGlucoseTableShardingStrategy" generate-key-column="id"/>
+                <sharding:table-rule logic-table="snc_device_glucose_data"
+                                     actual-data-nodes="demo_ds.snc_device_glucose_data_${1..10}"
+                                     table-strategy-ref="deviceGlucoseTableShardingStrategy" generate-key-column="id"/>
+
             </sharding:table-rules>
             <sharding:binding-table-rules>
-                <sharding:binding-table-rule logic-tables="t_order, t_order_item"/>
+                <sharding:binding-table-rule
+                        logic-tables="t_order, t_order_item, snc_glucose_data, snc_user_glucose_data, snc_device_glucose_data"/>
             </sharding:binding-table-rules>
         </sharding:sharding-rule>
     </sharding:data-source>

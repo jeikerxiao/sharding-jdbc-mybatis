@@ -17,7 +17,7 @@
 
 package io.shardingjdbc.example.spring.namespace.mybatis.entity;
 
-import java.sql.Date;
+import java.util.Date;
 
 public final class OrderItem {
     

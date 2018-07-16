@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.shardingjdbc.example.spring.namespace.mybatis.repository.SncDeviceGlucoseDataRepository">
+
+    <resultMap id="baseResultMap" type="io.shardingjdbc.example.spring.namespace.mybatis.entity.SncDeviceGlucoseData">
+        <result column="id" property="id" jdbcType="INTEGER"/>
+        <result column="sn" property="sn" jdbcType="VARCHAR"/>
+        <result column="user_code" property="userCode" jdbcType="VARCHAR"/>
+        <result column="test_time" property="testTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <update id="createIfNotExistsTable">
+        CREATE TABLE IF NOT EXISTS snc_device_glucose_data (
+        id BIGINT AUTO_INCREMENT,
+        sn VARCHAR(20),
+        user_code VARCHAR(32),
+        test_time TIMESTAMP,
+        PRIMARY KEY (id)
+        );
+    </update>
+
+    <update id="truncateTable">
+        TRUNCATE TABLE snc_device_glucose_data;
+    </update>
+
+    <update id="dropTable">
+        DROP TABLE IF EXISTS snc_device_glucose_data;
+    </update>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO snc_device_glucose_data (
+          id, sn, user_code, test_time
+        )
+        VALUES (
+        #{id,jdbcType=INTEGER},
+        #{sn,jdbcType=VARCHAR},
+        #{userCode,jdbcType=VARCHAR},
+        #{testTime,jdbcType=TIMESTAMP }
+        )
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM snc_device_glucose_data WHERE id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <select id="selectAll" resultMap="baseResultMap">
+        SELECT
+        *
+        FROM
+        snc_device_glucose_data
+    </select>
+</mapper>

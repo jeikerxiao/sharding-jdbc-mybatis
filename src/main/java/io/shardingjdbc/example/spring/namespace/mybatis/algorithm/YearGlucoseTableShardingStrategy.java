@@ -32,6 +32,7 @@ public class YearGlucoseTableShardingStrategy implements PreciseShardingAlgorith
                 return each;
             }
         }
+        log.error("out of table");
         throw new UnsupportedOperationException();
     }
 
