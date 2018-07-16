@@ -17,14 +17,17 @@
 
 package io.shardingjdbc.example.spring.namespace.mybatis.entity;
 
+import java.util.Date;
+
 public final class Order {
     
     private long orderId;
-    
     private int userId;
-    
     private String status;
-    
+    private String sn;
+    private String userCode;
+    private Date testTime;
+
     public long getOrderId() {
         return orderId;
     }
@@ -48,7 +51,31 @@ public final class Order {
     public void setStatus(final String status) {
         this.status = status;
     }
-    
+
+    public String getSn() {
+        return sn;
+    }
+
+    public void setSn(String sn) {
+        this.sn = sn;
+    }
+
+    public String getUserCode() {
+        return userCode;
+    }
+
+    public void setUserCode(String userCode) {
+        this.userCode = userCode;
+    }
+
+    public Date getTestTime() {
+        return testTime;
+    }
+
+    public void setTestTime(Date testTime) {
+        this.testTime = testTime;
+    }
+
     @Override
     public String toString() {
         return String.format("order_id: %s, user_id: %s, status: %s", orderId, userId, status);

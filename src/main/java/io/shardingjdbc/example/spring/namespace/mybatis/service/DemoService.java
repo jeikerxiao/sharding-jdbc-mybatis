@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -31,6 +32,9 @@ public class DemoService {
             Order order = new Order();
             order.setUserId(51);
             order.setStatus("INSERT_TEST");
+            order.setSn("2AH4A0R0039");
+            order.setUserCode("wx_oIp5uws6l-8VnhoKzreg_5gJNjYI");
+            order.setTestTime(new Date());
             orderRepository.insert(order);
             long orderId = order.getOrderId();
             orderIds.add(orderId);
@@ -39,18 +43,21 @@ public class DemoService {
             item.setOrderId(orderId);
             item.setUserId(51);
             item.setStatus("INSERT_TEST");
+            order.setSn("2AH4A0R0039");
+            order.setUserCode("wx_oIp5uws6l-8VnhoKzreg_5gJNjYI");
+            order.setTestTime(new Date());
             orderItemRepository.insert(item);
         }
         List<OrderItem> orderList = orderItemRepository.selectAll();
         orderList.forEach(System.out::println);
 
-        System.out.println("2.Delete--------------");
-        for (Long each : orderIds) {
-            orderRepository.delete(each);
-            orderItemRepository.delete(each);
-        }
-        System.out.println(orderItemRepository.selectAll());
-        orderItemRepository.dropTable();
-        orderRepository.dropTable();
+//        System.out.println("2.Delete--------------");
+//        for (Long each : orderIds) {
+//            orderRepository.delete(each);
+//            orderItemRepository.delete(each);
+//        }
+//        System.out.println(orderItemRepository.selectAll());
+//        orderItemRepository.dropTable();
+//        orderRepository.dropTable();
     }
 }
