@@ -15,11 +15,13 @@ public class DeviceGlucoseTableShardingStrategy implements PreciseShardingAlgori
 
     private Logger log = LoggerFactory.getLogger(PreciseModuloTableShardingAlgorithm.class);
 
+    private int tableCount = 10;
+
     @Override
     public String doSharding(final Collection<String> availableTargetNames, final PreciseShardingValue<Long> shardingValue) {
         for (String each : availableTargetNames) {
             // 根据分表键值，确定数据落入的数据库
-            if (each.endsWith(shardingValue.getValue() % 10 + "")) {
+            if (each.endsWith(Math.abs(shardingValue.hashCode()) % tableCount + 1 + "")) {
                 // 返回真实的数据库表名
                 System.out.println("logicTable: " + shardingValue);
                 log.info("table name: {}", each);

@@ -44,13 +44,13 @@ public class DemoService {
         List<OrderItem> orderList = orderItemRepository.selectAll();
         orderList.forEach(System.out::println);
 
-//        System.out.println("2.Delete--------------");
-//        for (Long each : orderIds) {
-//            orderRepository.delete(each);
-//            orderItemRepository.delete(each);
-//        }
-//        System.out.println(orderItemRepository.selectAll());
-//        orderItemRepository.dropTable();
-//        orderRepository.dropTable();
+        System.out.println("2.Delete--------------");
+        for (Long each : orderIds) {
+            orderRepository.delete(each);
+            orderItemRepository.delete(each);
+        }
+        System.out.println(orderItemRepository.selectAll());
+        orderItemRepository.dropTable();
+        orderRepository.dropTable();
     }
 }
