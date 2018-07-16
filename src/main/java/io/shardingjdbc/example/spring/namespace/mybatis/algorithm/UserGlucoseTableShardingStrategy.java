@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Collection;
 
 /**
- * Description: 用户血糖表-分表策略
+ * Description: 用户血糖表-分表策略(user_code)
  * Created by jeikerxiao on 2018/7/13 下午5:11
  */
 public class UserGlucoseTableShardingStrategy implements PreciseShardingAlgorithm<Long> {
@@ -31,53 +31,4 @@ public class UserGlucoseTableShardingStrategy implements PreciseShardingAlgorith
         }
         throw new UnsupportedOperationException();
     }
-
-    /**默认分10个表，spring-dao-sharding.xml中可以配置(但是加表后会导致数据错乱，所以日后如果10个表不满足，加表的时候需要先将数据整理好)*/
-    /**
-     private int tableCount=10;
-
-     public int getTableCount() {
-     return tableCount;
-     }
-
-     public void setTableCount(int tableCount) {
-     this.tableCount = tableCount;
-     }
-
-
-     @Override protected <T> String praseShardingKeyTableName(T t) {
-     if(t!=null){
-     if(t instanceof SncUserGlucoseData){
-     return getTableName(((SncUserGlucoseData) t).getUserCode());
-     }
-     if(t instanceof AppRequestUserGlucoseVo){
-     return getTableName(((AppRequestUserGlucoseVo) t).getUserCode());
-     }
-     if(t instanceof SncUserGlucoseDataExample){
-     for(Criteria cr:((SncUserGlucoseDataExample) t).getOredCriteria()){
-     for(Criterion crion:cr.getCriteria()){
-     if(StringUtils.containsIgnoreCase(crion.getCondition(), shardingColumns)
-     && crion.getValue()!=null){
-     return getTableName(crion.getValue());
-     }
-     }
-     }
-     }
-     }
-     return logicTableName;
-     }
-
-
-     public String getTableName(Object userCode){
-     int tableSuffix=Math.abs(userCode.hashCode())%tableCount+1;
-     return logicTableName+TABLE_LINK_SYMBOL+tableSuffix;
-     }
-
-     public static void main(String[] args) {
-     UserOfGlucoseSingleKeyTableShardingAlgorithm d=new UserOfGlucoseSingleKeyTableShardingAlgorithm();
-     d.setLogicTableName("snc_user_glucose_data");
-     System.out.println(d.getTableName("wx_ohoqaw8S6vpbZDiPEGkTk6sB2bko"));
-     }
-
-     */
 }
